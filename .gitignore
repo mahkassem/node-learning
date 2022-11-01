@@ -1,2 +1,7 @@
+# Build
 /dist
 /node_modules
+
+# Secrets
+.env
+.vscode
