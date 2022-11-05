@@ -1,7 +1,5 @@
 {
-    "defaultEnv": "local",
-    "sql-file": true,
-    "local": {
+    "dev": {
         "driver": "pg",
         "user": {
             "ENV": "DB_USER"
@@ -18,5 +16,6 @@
         "port": {
             "ENV": "DB_PORT"
         }
-    }
+    },
+    "sql-file": true
 }

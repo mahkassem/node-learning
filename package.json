@@ -1,18 +1,19 @@
 {
-    "name": "express-server",
+    "name": "express-server3",
     "version": "1.0.0",
     "description": "Another Nodejs application",
     "main": "app.js",
     "scripts": {
+        "prestart": "npm run build",
         "start": "node .",
         "dev": "nodemon src/app.ts",
         "db:up": "npx db-migrate up",
         "db:down": "npx db-migrate reset",
-        "prettier": "prettier --write src/**/*.{ts,json}",
         "lint": "eslint src/**/*.{ts,json}",
         "lint:fix": "eslint src/**/*.{ts,json} --fix",
+        "prettier": "prettier --write src/**/*.{ts,json}",
         "build": "npx tsc",
-        "pretest": "npm run build",
+        "pretest": "npm run lint:fix && npm run build",
         "test": "jasmine"
     },
     "keywords": [
@@ -22,10 +23,17 @@
     "author": "Mahmoud Kassem",
     "license": "ISC",
     "devDependencies": {
+        "@types/bcrypt": "^5.0.0",
+        "@types/cors": "^2.8.12",
         "@types/express": "^4.17.14",
+        "@types/express-list-endpoints": "^6.0.0",
+        "@types/helmet": "^4.0.0",
         "@types/jasmine": "^4.3.0",
-        "@typescript-eslint/eslint-plugin": "^5.40.0",
-        "@typescript-eslint/parser": "^5.40.0",
+        "@types/jsonwebtoken": "^8.5.9",
+        "@types/morgan": "^1.9.3",
+        "@types/pg": "^8.6.5",
+        "@types/supertest": "^2.0.12",
+        "@typescript-eslint/eslint-plugin": "^5.40.1",
         "eslint": "^8.25.0",
         "eslint-config-prettier": "^8.5.0",
         "eslint-config-standard-with-typescript": "^23.0.0",
@@ -36,13 +44,22 @@
         "jasmine-spec-reporter": "^7.0.0",
         "nodemon": "^2.0.20",
         "prettier": "2.7.1",
+        "supertest": "^6.3.1",
         "ts-node": "^10.9.1",
         "typescript": "^4.8.4"
     },
     "dependencies": {
+        "bcrypt": "^5.1.0",
+        "cors": "^2.8.5",
         "db-migrate": "^0.11.13",
         "db-migrate-pg": "^1.2.2",
+        "dotenv": "^16.0.3",
         "express": "^4.18.2",
-        "fs": "^0.0.1-security"
+        "express-list-endpoints": "^6.0.0",
+        "fs": "^0.0.1-security",
+        "helmet": "^6.0.0",
+        "jsonwebtoken": "^8.5.1",
+        "morgan": "^1.10.0",
+        "pg": "^8.8.0"
     }
 }
