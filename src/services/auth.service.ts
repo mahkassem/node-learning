@@ -2,6 +2,7 @@ import UsersEntity, { User } from "../entities/users.entity";
 import bcrypt from "bcrypt"
 import dotenv from "dotenv"
 import jwt from "jsonwebtoken"
+import { NextFunction, Request, Response, RequestHandler } from "express";
 
 dotenv.config()
 
@@ -14,6 +15,8 @@ class AuthService {
     async register(user: User): Promise<User> {
         user.password = await bcrypt.hash(user.password as string + bcryptSecret, saltRounds);
         const createdUser = await _usersEntity.createUser(user);
+        // remove password from user
+        delete createdUser.password;
         return createdUser;
     }
 
@@ -42,14 +45,14 @@ class AuthService {
     generateToken(user: User): string {
         // generate token
         const token = jwt.sign({ sub: user.username }, JWTSecret, {
-            expiresIn: 60 // expires in 24 hours
+            expiresIn: '1d' // expires in 24 hours
         });
 
         return token;
     }
 }
 
-const authGuard = async (req: any, res: any, next: any): Promise<void> => {
+const authGuard = (async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         // get token from request header
         const token = req.headers.authorization?.split(" ")[1];
@@ -59,7 +62,7 @@ const authGuard = async (req: any, res: any, next: any): Promise<void> => {
             throw new Error("Token is missing")
 
         // decode token
-        const decodedToken = jwt.verify(token as string, JWTSecret);
+        const decodedToken = jwt.verify(token, JWTSecret);
 
         // check if token is valid
         if (decodedToken === undefined)
@@ -77,12 +80,12 @@ const authGuard = async (req: any, res: any, next: any): Promise<void> => {
 
         next();
     } catch (e: any) {
-        return res.status(401).json({
+        res.status(401).json({
             message: "Unauthorized",
             error: e?.message
         });
-    }
-}
+    };
+}) as RequestHandler;
 
 export { authGuard }
 export default AuthService;

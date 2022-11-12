@@ -10,12 +10,12 @@ interface Hobby {
 }
 
 interface IStudentManager {
-    getStudentName(): string
-    setStudentName(name: string): void
-    getStudentAge(): number
-    setStudentAge(age: number): void
-    getStudentHobbies(): Hobby[]
-    setStudentHobbies(hobbies: Hobby[]): void
+    getStudentName: () => string
+    setStudentName: (name: string) => void
+    getStudentAge: () => number
+    setStudentAge: (age: number) => void
+    getStudentHobbies: () => Hobby[]
+    setStudentHobbies: (hobbies: Hobby[]) => void
 }
 
 class StudentManager implements IStudentManager {
@@ -42,7 +42,7 @@ class StudentManager implements IStudentManager {
     }
 
     getStudentHobbies(): Hobby[] {
-        return this.student.hobbies || []
+        return this.student.hobbies ?? []
     }
 
     setStudentHobbies(hobbies: Hobby[]): void {

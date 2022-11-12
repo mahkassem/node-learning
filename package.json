@@ -14,7 +14,7 @@
         "prettier": "prettier --write src/**/*.{ts,json}",
         "build": "npx tsc",
         "pretest": "npm run lint:fix && npm run build",
-        "test": "jasmine"
+        "test": "set ENV=test&& npx db-migrate --env test up && jasmine && npx db-migrate --env test reset"
     },
     "keywords": [
         "nodejs",
