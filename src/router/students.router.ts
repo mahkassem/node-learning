@@ -1,8 +1,15 @@
 import { Router } from "express"
-import { createStudentHandler, getStudentById, getStudentWithUserById } from "../controllers/students.controller"
+import { createStudentHandler, getAllStudents, getStudentById, getStudentWithUserById } from "../controllers/students.controller"
 import { authGuard } from "../services/auth.service"
 
 const studentsRouter = Router()
+
+studentsRouter.get(
+    '/',
+    authGuard,
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
+    getAllStudents
+)
 
 studentsRouter.post(
     '/',

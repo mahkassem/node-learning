@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import db from '../providers/database.provider';
+import { PaginationOptions } from '../utils/data/pagination-options.interface';
 
 interface Student {
     id: number;
@@ -24,8 +25,16 @@ class StudentsEntity {
         return rows[0];
     }
 
-    async getAllStudents(): Promise<Student[]> {
-        const { rows } = await db.query('SELECT * FROM students');
+    // perPage = 25,  page = 37
+    // SELECT * FROM students LIMIT 15 OFFSET ?;
+
+    async getAllStudents(options?: PaginationOptions): Promise<Student[]> {
+        const { page, perPage } = options as PaginationOptions;
+        let query = `SELECT * FROM students`;
+        if (page !== undefined) {
+            query += ` LIMIT ${perPage ?? 5} OFFSET ${perPage ?? 5 * (page - 1)}`;
+        }
+        const { rows } = await db.query(query);
         return rows;
     }
 
