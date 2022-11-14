@@ -6,3 +6,5 @@ Tue Oct 25 2022 :: File test.txtx not found
 Tue Oct 25 2022 :: File test2.txt not found 
 Tue Oct 25 2022 :: File test2.txt not found 
 Tue Oct 25 2022 :: File test2.txt not found 
+Mon Nov 14 2022 :: TypeError: path must be absolute or specify root to res.sendFile 
+Mon Nov 14 2022 :: TypeError: path must be absolute or specify root to res.sendFile 

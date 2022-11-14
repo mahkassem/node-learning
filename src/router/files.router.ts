@@ -1,5 +1,5 @@
 import { Router } from "express"
-import { getFileByNameHandler, updateFileByNameHandler } from "../controllers/files.controller"
+import { getFileByNameHandler, updateFileByNameHandler, uploadFileHandler } from "../controllers/files.controller"
 import { authGuard } from "../services/auth.service"
 import { getFileByNameValidator, updateFileByNameValidator } from "../validators/files.validator"
 
@@ -18,5 +18,10 @@ filesRouter.put(
     updateFileByNameValidator, // ! Validator
     updateFileByNameHandler // * Handler
 )
+
+filesRouter.post(
+    '/upload',  // ? UR
+    uploadFileHandler // * Handler
+);
 
 export default filesRouter

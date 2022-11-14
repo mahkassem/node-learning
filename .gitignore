@@ -5,3 +5,6 @@ node_modules
 # Secrets
 .vscode
 .env
+
+# Storage
+!storage
